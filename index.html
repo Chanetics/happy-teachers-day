@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Happy Teachers' Day, Baby :></title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- QR code generator (makes the QR scannable) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <link rel="stylesheet" href="style.css?v=37">
+  <script src="script.js?v=37" defer></script>
+</head>
+<body>
+
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+  <div class="bubble-field home-bubbles" id="homeBubbles" aria-hidden="true"></div>
+
+  <main class="stage">
+
+    <!-- SCREEN 1 · QR CODE -->
+    <section class="screen active" id="screen-qr" aria-label="QR code">
+      <div class="card">
+        <h1 class="script-title">It's for you<br>to find out</h1>
+
+        <button class="qr-frame" id="qrBtn" type="button" aria-label="Tap or scan the QR code to open your gift">
+          <span class="qr-box" id="qrBox"></span>
+          <span class="qr-caption">Scan or tap me</span>
+        </button>
+
+        <p class="hint">Scan this with your phone camera, or just tap it</p>
+      </div>
+    </section>
+
+    <!-- SCREEN 2 · BUBBLES (full page) -->
+    <section class="screen full" id="screen-bubbles" aria-label="Happy Teachers' Day">
+      <div class="bubble-field" id="bubbleField" aria-hidden="true"></div>
+      <h2 class="bubble-title">HAPPY TEACHER'S DAY<br>BABY &lt;3</h2>
+      <p class="auto-note" id="autoNote" hidden>When the song is done, tap Next to continue to the next slide.</p>
+      <button class="next-btn" id="bubblesNext" type="button" hidden>Next</button>
+    </section>
+
+    <!-- SCREEN 3 · THE HOME QUESTION -->
+    <section class="screen" id="screen-question" aria-label="A question">
+      <div class="card">
+        <p class="q-emoji" aria-hidden="true">🏠</p>
+        <h2 class="script-title" id="qText">Home isn't just a place&hellip;<br>What does &quot;HOME&quot; mean to you?</h2>
+
+        <div class="q-options" id="qOptions">
+          <button class="next-btn inline" id="qYes" type="button">A person &#128150;</button>
+          <button class="ghost-btn" id="qNo" type="button">A place &#127969;</button>
+        </div>
+
+        <div class="q-reply" id="qReply" hidden>
+          <p id="qReplyText"></p>
+          <button class="next-btn inline" id="qNext" type="button">Next</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4 · THIS IS MY HOME -->
+    <section class="screen" id="screen-home" aria-label="This is my home">
+      <div class="card clear">
+        <h2 class="script-title" id="homeTitle">THIS IS MY HOME &lt;3</h2>
+
+        <div class="env-wrap" id="envWrap">
+          <div class="envelope" id="envelope2" role="button" tabindex="0" aria-label="Open the envelope">
+            <div class="env-letter"><span>Welcome home ♥</span></div>
+            <div class="env-pocket env-left"></div>
+            <div class="env-pocket env-right"></div>
+            <div class="env-pocket env-bottom"></div>
+            <div class="env-flap"></div>
+            <span class="seal" aria-hidden="true">♥</span>
+          </div>
+          <p class="hint">Tap the envelope to open</p>
+        </div>
+
+        <div class="gallery" id="gallery" hidden>
+          <figure class="polaroid">
+            <div class="photo" id="galPhoto" data-label="Add photo">
+              <img id="galImg" src="" alt="">
+            </div>
+            <figcaption id="galCaption"></figcaption>
+          </figure>
+
+          <div class="dots" id="galDots" aria-hidden="true"></div>
+
+          <div class="gal-actions">
+            <button class="ghost-btn" id="galPrev" type="button">Back</button>
+            <button class="next-btn inline" id="galNext" type="button">Next</button>
+          </div>
+        </div>
+
+        <!-- All 5 pictures together (shown after the 5th picture) -->
+        <div class="collage" id="collage" hidden>
+          <div class="collage-grid" id="collageGrid"></div>
+          <div class="gal-actions">
+            <button class="ghost-btn" id="collageBack" type="button">Back</button>
+            <button class="next-btn inline" id="collageNext" type="button">Next</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4b · GOODNIGHT VIDEO (after the 5 pictures) -->
+    <section class="screen" id="screen-video" aria-label="Goodnight video">
+      <div class="card video-card">
+        <h2 class="script-title" id="videoTitle">Imong goodnight = matug napud si Channy nga nagsmile</h2>
+
+        <div class="video-wrap">
+          <video id="goodnightVideo" src="picture/goodnight.mp4" controls playsinline preload="metadata"></video>
+        </div>
+
+        <button class="next-btn inline" id="videoNext" type="button">Next</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 5 · OUR SCRABBLE GAME -->
+    <section class="screen" id="screen-scrabble" aria-label="Our scrabble game">
+      <div class="card">
+        <h2 class="script-title">Our Scrabble Game</h2>
+
+        <div class="scoreboard">
+          <div class="sb-side">
+            <span class="tile-name" id="sbNameL">Channy</span>
+            <span class="tile" id="sbScoreL">4</span>
+          </div>
+          <span class="sb-dash">-</span>
+          <div class="sb-side">
+            <span class="tile" id="sbScoreR">3</span>
+            <span class="tile-name" id="sbNameR">Andeng</span>
+          </div>
+        </div>
+        <p class="sb-note" id="sbNote"></p>
+
+        <div class="scrabble-grid" id="scrabbleGrid"></div>
+
+        <button class="next-btn inline" id="scrabbleNext" type="button">Next</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 6 · FROM THIS, TO THIS -->
+    <section class="screen" id="screen-fromto" aria-label="From this to this">
+      <div class="card">
+        <h2 class="script-title">From this &hellip; to this</h2>
+
+        <div class="fromto-grid">
+          <figure class="ft-item">
+            <p class="ft-label">From this</p>
+            <div class="photo" id="ftFromPhoto" data-label="Add photo">
+              <img id="ftFromImg" src="" alt="">
+            </div>
+            <figcaption id="ftFromCaption"></figcaption>
+          </figure>
+
+          <span class="ft-arrow" aria-hidden="true">&#10084;</span>
+
+          <figure class="ft-item">
+            <p class="ft-label">To this</p>
+            <div class="photo" id="ftToPhoto" data-label="Add photo">
+              <img id="ftToImg" src="" alt="">
+            </div>
+            <figcaption id="ftToCaption"></figcaption>
+          </figure>
+        </div>
+
+        <button class="next-btn inline" id="fromtoNext" type="button">Next</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 7 · THE ART AND THE ARTIST -->
+    <section class="screen" id="screen-artist" aria-label="The art and the artist">
+      <div class="card">
+        <h2 class="script-title">The art and the artist</h2>
+
+        <div class="stack">
+          <figure class="stack-item">
+            <div class="photo" id="aaTopPhoto" data-label="Add photo 1">
+              <img id="aaTopImg" src="" alt="">
+            </div>
+            <figcaption id="aaTopCaption"></figcaption>
+          </figure>
+
+          <figure class="stack-item">
+            <div class="photo" id="aaBottomPhoto" data-label="Add photo 2">
+              <img id="aaBottomImg" src="" alt="">
+            </div>
+            <figcaption id="aaBottomCaption"></figcaption>
+          </figure>
+        </div>
+
+        <button class="next-btn inline" id="artistNext" type="button">Next</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 8 · HERE'S MY GIFT FOR YOU -->
+    <section class="screen" id="screen-gift" aria-label="Here's my gift for you">
+      <div class="card gift">
+        <h2 class="script-title">Here's my gift<br>for you</h2>
+
+        <button class="gift-card" id="giftLetter" type="button" aria-label="Open my letter to you">
+          <span class="stamp"><span>Happy<br>Teachers'<br>day</span></span>
+          <span class="gift-label">My Letter to you</span>
+        </button>
+
+        <button class="gift-card" id="giftFavorites" type="button" aria-label="See my favorites">
+          <svg class="fav-heart" viewBox="0 0 120 100" aria-hidden="true">
+            <path d="M60 92 C20 62 6 42 6 26 C6 12 17 4 30 4 C42 4 54 11 60 22 C66 11 78 4 90 4 C103 4 114 12 114 26 C114 42 100 62 60 92 Z" fill="#a3151a" stroke="#d4a537" stroke-width="4" stroke-linejoin="round"/>
+            <circle cx="38" cy="26" r="7" fill="#fff" opacity=".7"/>
+          </svg>
+          <span class="gift-label">My favorites</span>
+        </button>
+
+        <button class="gift-card" id="giftMemories" type="button" aria-label="See our fav memories">
+          <svg class="camera" viewBox="0 0 120 90" aria-hidden="true">
+            <rect x="8" y="22" width="104" height="62" rx="8" fill="#e9cf85" stroke="#b98a1f" stroke-width="3"/>
+            <rect x="22" y="12" width="22" height="12" rx="3" fill="#e9cf85" stroke="#b98a1f" stroke-width="3"/>
+            <rect x="74" y="12" width="26" height="9" rx="2" fill="#2a1a10"/>
+            <circle cx="60" cy="53" r="22" fill="#fbf3df" stroke="#b98a1f" stroke-width="3"/>
+            <circle cx="60" cy="53" r="14" fill="#2a1a10"/>
+          </svg>
+          <span class="gift-label">Fav memories</span>
+        </button>
+
+        <button class="ghost-btn replay" id="replay" type="button">Replay from the start</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 9 · MY FAVORITES -->
+    <section class="screen" id="screen-favorites" aria-label="My favorites">
+      <div class="card">
+        <h2 class="script-title fav-title" id="favTitle">Your clingy sides baby</h2>
+        <p class="fav-heart-text" aria-hidden="true">&#9829;</p>
+
+        <div class="fav-grid" id="favGrid" hidden></div>
+
+        <div class="fav-actions" id="favActions" hidden>
+          <button class="ghost-btn" id="favBack" type="button">Back to gifts</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 10 · FAV MEMORIES (one picture) -->
+    <section class="screen" id="screen-favmem" aria-label="Fav memories">
+      <div class="card">
+        <h2 class="script-title" id="fmTitle">Fav memories</h2>
+
+        <figure class="single-pic">
+          <div class="photo" id="fmPhoto" data-label="Add photo">
+            <img id="fmImg" src="" alt="">
+          </div>
+          <figcaption id="fmCaption"></figcaption>
+        </figure>
+
+        <button class="ghost-btn" id="fmBack" type="button">Back to gifts</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- REMINDER POP-UP -->
+  <div class="modal" id="reminder" role="alertdialog" aria-modal="true" aria-labelledby="reminderTitle" hidden>
+    <div class="modal-card">
+      <p class="modal-emoji" aria-hidden="true">🎥</p>
+      <h3 id="reminderTitle">Reminder</h3>
+      <p>Can you make a video of yourself while exploring the website, please?</p>
+      <button class="next-btn inline" id="reminderOk" type="button">Okay, noted</button>
+    </div>
+  </div>
+
+  <!-- LETTER POP-UP -->
+  <div class="modal" id="letterModal" role="dialog" aria-modal="true" aria-labelledby="letterTitle" hidden>
+    <div class="modal-card letter-card">
+      <h3 id="letterTitle">My Letter to you</h3>
+      <div id="letterBody" class="letter-body"></div>
+      <button class="next-btn inline" id="closeLetter" type="button">Close</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Song (file: picture/teacher song.m4a) -->
+  <audio id="bgm" src="picture/teacher song.m4a" preload="auto"></audio>
+
+  <!-- Voice clip (file: picture/channy greet.m4a) -->
+  <audio id="voice" src="picture/channy greet.m4a" preload="auto"></audio>
+
+</body>
+</html>
